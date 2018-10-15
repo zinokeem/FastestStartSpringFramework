@@ -12,6 +12,8 @@
 
     <context:component-scan base-package="org.spring.controller" />
 
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+
     <mvc:annotation-driven />
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
