@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.znkim.trash.mapper.DamnMapper">
-    <select id="selectUserData" resultType="damn">
+<mapper namespace="org.znkim.trash.mapper.SampleMapper">
+    <select id="selectUserData" resultType="sample">
         SELECT * FROM USERS
     </select>
 </mapper>

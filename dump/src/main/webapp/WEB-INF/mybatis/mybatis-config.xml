@@ -6,6 +6,6 @@
         <setting name="mapUnderscoreToCamelCase" value="true" />
     </settings>
     <typeAliases>
-        <typeAlias alias="damn" type="org.znkim.trash.domain.Damn"/>
+        <typeAlias alias="sample" type="org.znkim.trash.domain.Sample"/>
     </typeAliases>
 </configuration>
