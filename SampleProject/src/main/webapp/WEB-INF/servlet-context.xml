@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 기반 패키지 경로 설정 -->
+    <context:component-scan base-package="org.znkim" />
+
+    <!-- 기본 어노테이션 설정 -->
+    <mvc:annotation-driven />
+
+    <!-- 리소스 매핑 -->
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+    <!-- 서블릿 설정 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+            <property name="prefix" value="/WEB-INF/view/"/>
+            <property name="suffix" value=".jsp"/>
+    </bean>
+    <!-- 데이터 소스 설정 -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="org.mariadb.jdbc.Driver"/>
+        <property name="url" value="jdbc:mariadb://130.211.249.82/test"/>
+        <property name="username" value="root"/>
+        <property name="password" value="znkim"/>
+    </bean>
+    <!-- SQL 세션 설정 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath:mapper/*Mapper.xml" />
+        <property name="configLocation" value="classpath:config/mybatis-config.xml" />
+    </bean>
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+    <!-- 매퍼 스캐너 : 없으면 매퍼를 못 찾는다. -->
+    <!-- mybatis매퍼에 대한 자세한 내용은 여기서 확인한다 : http://www.mybatis.org/spring/ko/mappers.html -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+      <property name="basePackage" value="org.znkim.persistent" />
+    </bean>
+</beans>
